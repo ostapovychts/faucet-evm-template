@@ -1,4 +1,4 @@
-# Faucet EVM Template
+## Faucet EVM Template
 
 <i> Testnet faucet template using Nextjs, Tailwind, hCaptcha and Redis </i>
 
