@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  redis:
+    container_name: faucet-redis
+    image: redis:latest
+    environment:
+      - REDIS_PASSWORD=testpassword
+    volumes:
+      - redis-node1-data:/data
+    command: /bin/sh -c "redis-server --appendonly yes --replica-read-only no"
+    ports:
+      - "22279:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped    
+  api:
+    container_name: faucet-evm-template 
+    build: .
+    depends_on:
+      - redis  
+    ports:
+      - 22230:3000
+
+networks:
+  faucet-redis-net:
+    driver: bridge  
+
+volumes:
+  redis-node1-data:
