@@ -7,7 +7,7 @@ services:
       - REDIS_PASSWORD=testpassword
     volumes:
       - redis-node1-data:/data
-    command: /bin/sh -c "redis-server --appendonly yes --replica-read-only no"
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_PASSWORD --appendonly yes --replica-read-only no"
     ports:
       - "22279:6379"
     healthcheck:
